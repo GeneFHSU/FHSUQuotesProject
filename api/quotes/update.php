@@ -14,7 +14,9 @@ if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
     exit();
 }
 
+echo "Decoding";
 $_PUT = json_decode(file_get_contents("php://input"));
+echo "Decoded";
 
 //Verify all parameters present
 if(!isset($_PUT["id"]) || !isset($_PUT["quote"]) || !isset($_PUT["authorId"]) || !isset($_PUT["categoryId"]))
