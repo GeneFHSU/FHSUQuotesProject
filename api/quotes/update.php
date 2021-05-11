@@ -14,24 +14,19 @@ if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
     exit();
 }
 
-echo "Decoding";
 $_PUT = json_decode(file_get_contents("php://input"),true);
-echo "Decoded";
 
 //Verify all parameters present
-/*if(!isset($_PUT["id"]) || !isset($_PUT["quote"]) || !isset($_PUT["authorId"]) || !isset($_PUT["categoryId"]))
+if(!isset($_PUT["id"]) || !isset($_PUT["quote"]) || !isset($_PUT["authorId"]) || !isset($_PUT["categoryId"]))
 {
-    echo "Verify";
     echo json_encode(array('error' => 'A parameter is missing.'));
     exit();
-}*/
+}
 //Sanitize the PUT parameters
-echo "Sanitizing";
 $id = filter_var( $_PUT["id"], FILTER_SANITIZE_NUMBER_INT);
 $quote = filter_var( $_PUT["quote"], FILTER_SANITIZE_STRING);
 $authorId = filter_var( $_PUT["authorId"], FILTER_SANITIZE_NUMBER_INT);
 $categoryId = filter_var(($_PUT["categoryId"]), FILTER_SANITIZE_NUMBER_INT);
-echo "Sanitized";
 
 //Verify all parameters present
 if (empty($id) || empty($quote) || empty($authorId) || empty($categoryId))
