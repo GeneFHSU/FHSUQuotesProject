@@ -14,18 +14,18 @@ if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
     exit();
 }
 
-$_PUT = json_decode(file_get_contents("php://input"),true);
+$_DELETE = json_decode(file_get_contents("php://input"),true);
 
 //Verify all parameters present
-if(!isset($_PUT["id"]))
+if(!isset($_DELETE["id"]))
 {
     echo json_encode(array('error' => 'A parameter is missing.'));
     exit();
 }
 
 //Sanitize the DELETE parameters
-if(isset($_PUT["id"]))
-    $authorId = filter_var( $_PUT["id"], FILTER_SANITIZE_NUMBER_INT);
+if(isset($_DELETE["id"]))
+    $authorId = filter_var( $_DELETE["id"], FILTER_SANITIZE_NUMBER_INT);
 
 //Verify all parameters present
 if (empty($authorId))

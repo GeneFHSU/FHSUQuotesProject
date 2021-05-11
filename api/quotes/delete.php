@@ -5,26 +5,26 @@ header('Access-Control-Allow-Methods: DELETE');
 
 require_once('../../model/quotes_db.php');
 
-//if($_SERVER['REQUEST_METHOD'] != 'DELETE') exit();
-
-//Process the DELETE parameters
-//https://joshtronic.com/2014/06/01/how-to-process-put-requests-with-php/
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
-{
-    parse_str(file_get_contents("php://input"), $_PUT);
-    foreach ($_PUT as $key => $value)
-    {
-        unset($_PUT[$key]);
-        $_PUT[str_replace('amp;', '', $key)] = $value;
-    }
-    $_REQUEST = array_merge($_REQUEST, $_PUT);
+if($_SERVER['REQUEST_METHOD'] != 'DELETE'){
+    echo json_encode(array('error' => 'Invalid request method.'));
+    exit();
+}
+if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
+    echo json_encode(array('error' => 'Invalid content-type encoding.'));
+    exit();
 }
 
-//Sanitize the DELETE parameters
-if(isset($_REQUEST["id"])) $quoteId = filter_var( $_REQUEST["id"], FILTER_SANITIZE_NUMBER_INT);
+$_DELETE = json_decode(file_get_contents("php://input"),true);
 
-//Debug
-$quoteId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+//Verify all parameters present
+if(!isset($_DELETE["id"]))
+{
+    echo json_encode(array('error' => 'A parameter is missing.'));
+    exit();
+}
+//Sanitize the DELETE parameters
+if(isset($_DELETE["id"]))
+    $quoteId = filter_var( $_DELETE["id"], FILTER_SANITIZE_NUMBER_INT);
 
 //Verify all parameters present
 if (empty($quoteId))
