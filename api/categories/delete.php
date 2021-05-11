@@ -24,8 +24,7 @@ if(!isset($_DELETE["id"]))
 }
 
 //Sanitize the DELETE parameters
-if(isset($_DELETE["id"]))
-    $categoryId = filter_var( $_DELETE["id"], FILTER_SANITIZE_NUMBER_INT);
+$categoryId = filter_var( $_DELETE["id"], FILTER_SANITIZE_NUMBER_INT);
 
 //Verify all parameters present
 if (empty($categoryId))
