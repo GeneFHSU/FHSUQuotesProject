@@ -5,26 +5,27 @@ header('Access-Control-Allow-Methods: DELETE');
 
 require_once('../../model/authors_db.php');
 
-//if($_SERVER['REQUEST_METHOD'] != 'DELETE') exit();
+if($_SERVER['REQUEST_METHOD'] != 'DELETE'){
+    echo json_encode(array('error' => 'Invalid request method.'));
+    exit();
+}
+if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
+    echo json_encode(array('error' => 'Invalid content-type encoding.'));
+    exit();
+}
 
-//Process the DELETE parameters
-//https://joshtronic.com/2014/06/01/how-to-process-put-requests-with-php/
-if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
+$_PUT = json_decode(file_get_contents("php://input"),true);
+
+//Verify all parameters present
+if(!isset($_PUT["id"]))
 {
-    parse_str(file_get_contents("php://input"), $_PUT);
-    foreach ($_PUT as $key => $value)
-    {
-        unset($_PUT[$key]);
-        $_PUT[str_replace('amp;', '', $key)] = $value;
-    }
-    $_REQUEST = array_merge($_REQUEST, $_PUT);
+    echo json_encode(array('error' => 'A parameter is missing.'));
+    exit();
 }
 
 //Sanitize the DELETE parameters
-if(isset($authorId)) $authorId = filter_var( $_REQUEST["id"], FILTER_SANITIZE_NUMBER_INT);
-
-//Debug
-$authorId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+if(isset($authorId))
+    $authorId = filter_var( $_PUT["id"], FILTER_SANITIZE_NUMBER_INT);
 
 //Verify all parameters present
 if (empty($authorId))
