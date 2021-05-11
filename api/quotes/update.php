@@ -21,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT')
     }
     else if($_SERVER["CONTENT_TYPE"] == 'text/plain'){
         $_PUT = json_decode(file_get_contents("php://input"));
+        var_dump($_PUT);
         $_REQUEST = array_merge($_REQUEST, $_PUT);
+
     }
     else{
         echo json_encode(array('error' => 'Invalid encoding.'));
