@@ -29,7 +29,7 @@ $category = filter_var( $_PUT["category"], FILTER_SANITIZE_STRING );
 
 //Verify all parameters present
 if (empty($categoryId) || empty($category))
-    echo json_encode(array('error' => 'Either the author or authorId is missing.'));
+    echo json_encode(array('error' => 'A parameter is missing.'));
 else {
     //Update the author in the database
     $category = CategoriesDB::update_category($categoryId,$category) ?? array("message"=>"Category Updated");
