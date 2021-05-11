@@ -24,7 +24,7 @@ if(!isset($_PUT["id"]))
 }
 
 //Sanitize the DELETE parameters
-if(isset($authorId))
+if(isset($_PUT["id"]))
     $authorId = filter_var( $_PUT["id"], FILTER_SANITIZE_NUMBER_INT);
 
 //Verify all parameters present
