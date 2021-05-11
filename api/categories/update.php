@@ -5,29 +5,27 @@ header('Access-Control-Allow-Methods: PUT');
 
 require_once('../../model/categories_db.php');
 
-//if($_SERVER['REQUEST_METHOD'] != 'PUT') exit();
+if($_SERVER['REQUEST_METHOD'] != 'PUT'){
+    echo json_encode(array('error' => 'Invalid request method.'));
+    exit();
+}
+if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
+    echo json_encode(array('error' => 'Invalid content-type encoding.'));
+    exit();
+}
 
-//Process the PUT parameters
-//https://joshtronic.com/2014/06/01/how-to-process-put-requests-with-php/
-if ($_SERVER['REQUEST_METHOD'] == 'PUT')
+$_PUT = json_decode(file_get_contents("php://input"),true);
+
+//Verify all parameters present
+if(!isset($_PUT["id"]) || !isset($_PUT["category"]))
 {
-    parse_str(file_get_contents("php://input"), $_PUT);
-    foreach ($_PUT as $key => $value)
-    {
-        unset($_PUT[$key]);
-        $_PUT[str_replace('amp;', '', $key)] = $value;
-    }
-    $_REQUEST = array_merge($_REQUEST, $_PUT);
+    echo json_encode(array('error' => 'A parameter is missing.'));
+    exit();
 }
 
 //Sanitize the PUT parameters
-$categoryId = filter_var( $_REQUEST["id"], FILTER_SANITIZE_NUMBER_INT);
-$category = filter_var( $_REQUEST["category"], FILTER_SANITIZE_STRING );
-
-//Debug
-$categoryId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
-$category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_STRING);
-
+$categoryId = filter_var( $_PUT["id"], FILTER_SANITIZE_NUMBER_INT);
+$category = filter_var( $_PUT["category"], FILTER_SANITIZE_STRING );
 
 //Verify all parameters present
 if (empty($categoryId) || empty($category))
