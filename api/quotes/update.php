@@ -21,6 +21,7 @@ echo "Decoded";
 //Verify all parameters present
 if(!isset($_PUT["id"]) || !isset($_PUT["quote"]) || !isset($_PUT["authorId"]) || !isset($_PUT["categoryId"]))
 {
+    echo "Verify";
     echo json_encode(array('error' => 'A parameter is missing.'));
     exit();
 }
