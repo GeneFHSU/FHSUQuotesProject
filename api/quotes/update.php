@@ -15,7 +15,7 @@ if($_SERVER["CONTENT_TYPE"] != 'text/plain'){
 }
 
 echo "Decoding";
-$_PUT = json_decode(file_get_contents("php://input"));
+$_PUT = json_decode(file_get_contents("php://input"),true);
 echo "Decoded";
 
 //Verify all parameters present
