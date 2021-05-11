@@ -31,19 +31,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT')
     }
 }
 
+//Verify all parameters present
+if(!isset($_REQUEST["id"]) || !isset($_REQUEST["quote"]) || !isset($_REQUEST["authorId"]) || !isset($_REQUEST["categoryId"]))
+{
+    echo json_encode(array('error' => 'A parameter is missing.'));
+    exit();
+}
 //Sanitize the PUT parameters
 $id = filter_var( $_REQUEST["id"], FILTER_SANITIZE_NUMBER_INT);
 $quote = filter_var( $_REQUEST["quote"], FILTER_SANITIZE_STRING);
 $authorId = filter_var( $_REQUEST["authorId"], FILTER_SANITIZE_NUMBER_INT);
-$categoryId = filter_var( $_REQUEST["categoryId"], FILTER_SANITIZE_NUMBER_INT);
-
-//Debug
-/*
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
-$quote = filter_input(INPUT_POST, 'quote', FILTER_SANITIZE_STRING);
-$authorId = filter_input(INPUT_POST, 'authorId', FILTER_SANITIZE_STRING);
-$categoryId = filter_input(INPUT_POST, 'categoryId', FILTER_SANITIZE_STRING);
-*/
+$categoryId = filter_var(($_REQUEST["categoryId"]), FILTER_SANITIZE_NUMBER_INT);
 
 //Verify all parameters present
 if (empty($id) || empty($quote) || empty($authorId) || empty($categoryId))
