@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zippy Used Autos</title>
+    <title>Quotes Database</title>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
 
@@ -12,6 +12,4 @@
 <main>
     <header>
         <h1>Quotes Database</h1>
-        <div class="register">
-        </div>
     </header>
