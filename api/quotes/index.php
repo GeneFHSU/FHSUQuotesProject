@@ -1,4 +1,7 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+header('Access-Control-Allow-Methods: GET');
 
 require_once('../../model/quotes_db.php');
 
@@ -12,8 +15,6 @@ $limit = filter_input(INPUT_GET, 'limit', FILTER_VALIDATE_INT);
 $random = filter_input(INPUT_GET, 'random', FILTER_VALIDATE_BOOLEAN);
 
 $quotes = QuoteDB::get_quotes($authorId,$categoryId,$limit);
-
-print_r($quotes);
 
 //Add random field
 if(!is_null($random))
