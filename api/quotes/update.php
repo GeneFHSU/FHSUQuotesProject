@@ -19,12 +19,12 @@ $_PUT = json_decode(file_get_contents("php://input"));
 echo "Decoded";
 
 //Verify all parameters present
-if(!isset($_PUT["id"]) || !isset($_PUT["quote"]) || !isset($_PUT["authorId"]) || !isset($_PUT["categoryId"]))
+/*if(!isset($_PUT["id"]) || !isset($_PUT["quote"]) || !isset($_PUT["authorId"]) || !isset($_PUT["categoryId"]))
 {
     echo "Verify";
     echo json_encode(array('error' => 'A parameter is missing.'));
     exit();
-}
+}*/
 //Sanitize the PUT parameters
 echo "Sanitizing";
 $id = filter_var( $_PUT["id"], FILTER_SANITIZE_NUMBER_INT);
