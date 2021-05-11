@@ -35,6 +35,8 @@ if (empty($id) || empty($quote) || empty($authorId) || empty($categoryId))
     echo json_encode(array('error' => 'A parameter is missing.'));
 else {
     //Update the quote in the database
+    echo "updating";
     $quote = QuoteDB::update_quote($id, $quote, $authorId, $categoryId) ?? array("message"=>"Quote Updated");
+    echo "updated";
     echo json_encode($quote);
 }
